@@ -1,3 +1,9 @@
 [submodule "livekit-rust-sdks"]
 	path = agent/rust-sdks
 	url = https://github.com/livekit/rust-sdks
+[submodule "agent-electron/nut.js"]
+	path = agent-electron/nut.js
+	url = https://github.com/nut-tree/nut.js
+[submodule "agent-electron/libnut"]
+	path = agent-electron/libnut
+	url = https://github.com/nut-tree/libnut-core

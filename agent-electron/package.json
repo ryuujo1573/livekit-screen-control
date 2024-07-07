@@ -1,0 +1,47 @@
+{
+  "name": "livekit-node-agent",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && electron-builder",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "rebuild": "npm rebuild --runtime=electron --target=1.1.3 --disturl=https://atom.io/download/atom-shell --abi=110",
+    "prepare": "pnpm --filter ./nut.js compile"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "robotjs": "^0.6.0",
+    "@nut-tree/nut-js": "workspace:"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.7",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^22.3.27",
+    "electron-builder": "^23.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "node-gyp": "^10.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6",
+    "vite-plugin-electron": "^0.28.6",
+    "vite-plugin-electron-renderer": "^0.14.5"
+  },
+  "main": "dist-electron/main.js",
+  "pnpm": {
+    "overrides": {
+      "@nut-tree/nut-js": "workspace:*",
+      "@nut-tree/configs": "workspace:*",
+      "@nut-tree/libnut-darwin": "link:./libnut",
+      "@nut-tree/libnut-linux": "link:./libnut",
+      "@nut-tree/libnut-win32": "link:./libnut"
+    }
+  }
+}

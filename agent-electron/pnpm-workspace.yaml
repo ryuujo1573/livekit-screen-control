@@ -1,0 +1,5 @@
+packages:
+  - nut.js/core/*
+  - nut.js/providers/*
+  - nut.js/
+  # - libnut
