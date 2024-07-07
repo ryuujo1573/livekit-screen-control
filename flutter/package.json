@@ -1,0 +1,8 @@
+{
+  "name": "livekit-screen-control-flutter",
+  "private": true,
+  "scripts": {
+    "flutter": "flutter",
+    "dev": "flutter run"
+  }
+}
