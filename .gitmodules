@@ -1,0 +1,3 @@
+[submodule "livekit-rust-sdks"]
+	path = agent/rust-sdks
+	url = https://github.com/livekit/rust-sdks

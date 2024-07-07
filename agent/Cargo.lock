@@ -32,7 +32,6 @@ dependencies = [
 name = "agent"
 version = "0.1.0"
 dependencies = [
- "libwebrtc",
  "livekit",
  "tokio",
 ]
@@ -742,22 +741,20 @@ checksum = "97b3888a4aecf77e811145cadf6eef5901f4782c53886191b2f693f24761847c"
 
 [[package]]
 name = "libwebrtc"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fdf058ddf2b9aa82a7453cb9a7060db9c89d2942f86c5d3cd8637a213346ae4d"
+version = "0.3.4"
 dependencies = [
  "cxx",
  "jni",
  "js-sys",
  "lazy_static",
  "livekit-protocol",
+ "livekit-runtime",
  "log",
  "parking_lot",
  "serde",
  "serde_json",
  "thiserror",
  "tokio",
- "tokio-stream",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
@@ -781,15 +778,14 @@ checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
 
 [[package]]
 name = "livekit"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "212ed7272bbe3fddcc5b3a5e7137bd5c8df53670dc54cdb01e82ae065746e3a3"
+version = "0.4.1"
 dependencies = [
  "futures-util",
  "lazy_static",
  "libwebrtc",
  "livekit-api",
  "livekit-protocol",
+ "livekit-runtime",
  "log",
  "parking_lot",
  "prost",
@@ -801,12 +797,12 @@ dependencies = [
 
 [[package]]
 name = "livekit-api"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e20c3fc3de5944ce6b5c8da4084cf828bbae7216671e32e83b767ce61feeb7e0"
+version = "0.3.4"
 dependencies = [
  "futures-util",
+ "http",
  "livekit-protocol",
+ "livekit-runtime",
  "log",
  "parking_lot",
  "prost",
@@ -823,8 +819,6 @@ dependencies = [
 [[package]]
 name = "livekit-protocol"
 version = "0.3.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62be61783ae13aa74975b95bb5782d68ae2f383ba9abfa28ce4bea632c104d13"
 dependencies = [
  "futures-util",
  "livekit-runtime",
@@ -841,8 +835,10 @@ dependencies = [
 [[package]]
 name = "livekit-runtime"
 version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a83b0056f661ab04b7f3279135ea3b038bb3531f05897671b874b32022cfb272"
+dependencies = [
+ "tokio",
+ "tokio-stream",
+]
 
 [[package]]
 name = "lock_api"
@@ -1481,15 +1477,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "signal-hook-registry"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9e9e0b4211b72e7b8b6e85c807d36c212bdb33ea8587f7569562a84df5465b1"
-dependencies = [
- "libc",
-]
-
-[[package]]
 name = "slab"
 version = "0.4.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1650,9 +1637,7 @@ dependencies = [
  "libc",
  "mio",
  "num_cpus",
- "parking_lot",
  "pin-project-lite",
- "signal-hook-registry",
  "socket2",
  "tokio-macros",
  "windows-sys 0.48.0",
@@ -1931,8 +1916,6 @@ dependencies = [
 [[package]]
 name = "webrtc-sys"
 version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a44db03f1ad32e8bcc8ba603d45910cb24465b9c8bca134de3829bb51ea5ace"
 dependencies = [
  "cc",
  "cxx",
@@ -1945,8 +1928,6 @@ dependencies = [
 [[package]]
 name = "webrtc-sys-build"
 version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f2ff5b6905670641bb9661d8eebe7318e0b775092fe2f96771fa88b92d45b62"
 dependencies = [
  "fs2",
  "regex",
