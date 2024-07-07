@@ -1,0 +1,41 @@
+{
+  "name": "livekit-screen-control",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "remote screen control based on livekit solution",
+  "scripts": {
+    "prepare": "husky",
+    "format": "prettier -w src/",
+    "test": "echo 114514",
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "张新伟 <me@shencang.blue>",
+  "license": "WTFPL",
+  "devDependencies": {
+    "@livekit/components-react": "^2.3.5",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "autoprefixer": "^10.4.19",
+    "daisyui": "^4.12.10",
+    "husky": "^9.0.11",
+    "livekit-client": "^2.3.1",
+    "postcss": "^8.4.39",
+    "prettier": "^3.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
+    "vitest": "^1.6.0"
+  },
+  "peerDependencies": {
+    "livekit-client": "^2.3.1"
+  },
+  "dependencies": {
+    "@livekit/components-styles": "^1.0.12"
+  }
+}
