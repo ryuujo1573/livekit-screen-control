@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/electron-vite.animate.svg'
-import './App.css'
+import { useEffect, useRef, useState } from "react";
+import {
+  LiveKitRoom,
+  useDataChannel,
+  useRoomContext,
+  VideoConference,
+} from "@livekit/components-react";
+import { Room, Track } from "livekit-client";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "@livekit/components-styles/index.css";
+import { Canvas } from "./Canvas";
+import { decodePointer } from "./codec";
+
+export function App() {
+  const room = useRoomContext();
+  const controlMode =
+    new URLSearchParams(location.search).get("control") == "true";
+
+  useEffect(() => {
+    const publishScreenShare = async () => {
+      if (controlMode) return;
+
+      // const [videoTrack] =
+      //   await room.localParticipant.createScreenTracks({
+      //     audio: false,
+      //   });
+      // const media = videoTrack.mediaStream!;
+
+      const media = await navigator.mediaDevices.getUserMedia({
+        video: {
+          // @ts-expect-error
+          mandatory: {
+            chromeMediaSource: "desktop",
+          },
+        },
+        audio: false,
+      });
+
+      room.localParticipant.publishTrack(media.getVideoTracks()[0], {
+        name: "screen-control",
+        source: Track.Source.ScreenShare,
+        screenShareEncoding: {
+          maxBitrate: 5 * 1024 ** 2,
+          maxFramerate: 120,
+        },
+      });
+    };
+    room.on("connected", publishScreenShare);
+    return () => {
+      room.off("connected", publishScreenShare);
+    };
+  }, [controlMode]);
+
+  useDataChannel((msg) => {
+    const { x, y } = decodePointer(msg.payload);
+    console.log("current pos %o", [x, y]);
+    if ("inputDevices" in window) {
+      // window.inputDevices.mouse.move([{ x, y }]);
+    }
+  });
 
   return (
     <>
-      <div>
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {controlMode ? (
+        <Canvas width={1920} height={1080} />
+      ) : (
+        <VideoConference />
+      )}
     </>
-  )
+  );
 }
-
-export default App

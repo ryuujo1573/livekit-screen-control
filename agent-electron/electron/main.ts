@@ -1,9 +1,12 @@
-import { app, BrowserWindow } from "electron";
+/// <reference types="vite-plugin-electron/electron-env" />
+import { app, BrowserWindow, desktopCapturer } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-
 const require = createRequire(import.meta.url);
+
+const { mouse, keyboard, screen, clipboard } =
+  require("@nut-tree/nut-js") as typeof import("@nut-tree/nut-js");
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // The built directory structure
@@ -28,13 +31,18 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
 
 let win: BrowserWindow | null;
 
-function createWindow() {
+async function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
     },
   });
+
+  const sources = await desktopCapturer.getSources({
+    types: ["screen"],
+  });
+  win.webContents.send("SET_SOURCES", sources);
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
@@ -53,10 +61,14 @@ function createWindow() {
       win.title += ` [node: ${process.version}]`;
     }
 
-    const { mouse, straightTo, Point } = require("@nut-tree/nut-js");
-    const target = new Point(500, 350);
-
-    await mouse.move(straightTo(target));
+    Object.assign(globalThis, {
+      inputDevices: {
+        mouse,
+        keyboard,
+        screen,
+        clipboard,
+      },
+    });
   }, 1000);
 }
 

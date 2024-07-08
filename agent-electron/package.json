@@ -11,10 +11,14 @@
     "prepare": "pnpm --filter ./nut.js compile"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.3.5",
+    "@livekit/components-styles": "^1.0.12",
+    "@nut-tree/nut-js": "workspace:",
+    "@nut-tree/shared": "workspace:^",
+    "livekit-client": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "robotjs": "^0.6.0",
-    "@nut-tree/nut-js": "workspace:"
+    "robotjs": "^0.6.0"
   },
   "devDependencies": {
     "@types/node": "16.11.7",
@@ -39,6 +43,7 @@
     "overrides": {
       "@nut-tree/nut-js": "workspace:*",
       "@nut-tree/configs": "workspace:*",
+      "@nut-tree/shared": "workspace:*",
       "@nut-tree/libnut-darwin": "link:./libnut",
       "@nut-tree/libnut-linux": "link:./libnut",
       "@nut-tree/libnut-win32": "link:./libnut"
